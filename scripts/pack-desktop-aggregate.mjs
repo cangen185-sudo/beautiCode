@@ -168,6 +168,7 @@ export async function stageDesktopAggregate(destRoot = defaultStageDir(), opts =
   await fsp.mkdir(destRoot, { recursive: true });
   const manifest = JSON.parse(await fsp.readFile(path.join(sourceRoot, "package.json"), "utf8"));
   // Source workspaces must install on Linux CI; only the distributable has a Windows-only runtime contract.
+    manifest.private = false;
   manifest.os = ["win32"];
   await fsp.writeFile(path.join(destRoot, "package.json"), `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
   for (const name of ["README.md", "LICENSE"]) {

@@ -441,6 +441,9 @@ export function resolveRoute(host, command, options = {}) {
 }
 
 export function runHostCommand(host, command, options = {}) {
+  if ((command === "install" || command === "uninstall") && (options.platform || process.platform) !== "win32") {
+    throw new Error("Desktop host installation is only supported on Windows.");
+  }
   const route = resolveRoute(host, command, options);
   if (command === "health") throw new Error("Use the asynchronous runHostHealth API for health checks.");
   if (route.readOnly) return getHostStatus(host, options);

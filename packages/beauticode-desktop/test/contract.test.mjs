@@ -12,7 +12,7 @@ test("desktop source workspace can be installed for cross-platform validation", 
   const manifest = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8"));
   assert.equal(manifest.name, "beauticode-desktop");
   assert.equal(manifest.version, "0.1.0-test.12");
-  assert.equal(manifest.private, false);
+  assert.equal(manifest.private, true);
   assert.equal(manifest.os, undefined);
   assert.equal(manifest.bin["beauticode-desktop"], "./bin/beauticode-desktop.mjs");
   assert.ok(manifest.files.includes("runtime"));

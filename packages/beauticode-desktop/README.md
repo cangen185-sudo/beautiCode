@@ -2,8 +2,8 @@
 
 Windows-only aggregate package for the beautiCode desktop hosts. Requires Node.js 22 or newer.
 
-The source workspace installs on Linux for CI validation. `npm run desktop:pack`
-adds the Windows-only npm platform restriction to the distributable; running
+The private source workspace installs on Linux for CI validation. `npm run desktop:pack`
+creates the publishable distributable with the Windows-only npm platform restriction; running
 Windows installation commands on another platform remains unsupported.
 
 Codex MSIX safety notice: direct launching an executable inside WindowsApps

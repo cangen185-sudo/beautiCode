@@ -1,7 +1,7 @@
 {
   "name": "beauticode-desktop",
   "version": "0.1.0-test.12",
-  "private": false,
+  "private": true,
   "description": "beautiCode desktop host aggregate for DSH, Codex, WorkBuddy, Cursor, and Doubao.",
   "type": "module",
   "bin": {

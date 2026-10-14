@@ -36,6 +36,7 @@ test("status has no child-process route", () => {
 test("install route is executable through an injected child-process seam", () => {
   let call;
   const result = runHostCommand("workbuddy", "install", {
+    platform: "win32",
     runtimeRoot: "C:/package/runtime",
     env: { TEST_ENV: "1" },
     spawnSync(...args) {
@@ -48,4 +49,19 @@ test("install route is executable through an injected child-process seam", () =>
   assert.match(call[1][0].replaceAll("\\", "/"), /runtime\/workbuddy\/scripts\/wb-setup\.mjs$/);
   assert.deepEqual(call[1].slice(1), ["install"]);
   assert.equal(call[2].env.BEAUTICODE_PACKAGED_RUNTIME, "1");
+});
+
+test("non-Windows install and uninstall reject before invoking a host script", () => {
+  for (const platform of ["linux", "darwin"]) {
+    for (const host of HOSTS) {
+      for (const command of ["install", "uninstall"]) {
+        let called = false;
+        assert.throws(() => runHostCommand(host, command, {
+          platform,
+          spawnSync() { called = true; return { status: 0 }; },
+        }), /only supported on Windows/);
+        assert.equal(called, false);
+      }
+    }
+  }
 });
